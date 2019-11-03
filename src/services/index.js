@@ -1,8 +1,21 @@
-const { productsMock } = require('../utils/mocks');
+// const { productsMock } = require('../utils/mocks');
+const MongoLib  = require('../lib/mongo');
+
 
 class ProductService {
+  constructor( ) {
+    this.collection = 'products';
+    this.mongoDB = new MongoLib();
+  }
   async getProducts() {
-    const products = await Promise.resolve(productsMock);
+    const query = {};
+    const products = await this.mongoDB.getProducts(this.collection,query);
+    return products || [];
+  }
+  
+  async createProducts() {
+    const query = {};
+    const products = await this.mongoDB.getProducts(this.collection,query);
     return products || [];
   }
 }
